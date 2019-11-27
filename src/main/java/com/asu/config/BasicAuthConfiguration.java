@@ -27,12 +27,6 @@ public class BasicAuthConfiguration extends WebSecurityConfigurerAdapter{
 	
 	@Autowired
 	private JwtRequestFilter jwtRequestFilter;
-/*	
-	@Bean
-	@Qualifier("customUserDetailService")
-	public UserDetailsService mongoUserDetails() {
-	    return new CustomUserDetailsService();
-	}*/
 	
 	@Autowired
 	@Qualifier("customUserDetailsService")

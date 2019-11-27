@@ -4,7 +4,7 @@
 
 [![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](http://errorsexceptions.blogspot.com/)
 
-This is a demo for spring boot Security Basic
+This is a demo for spring boot Security with JWT
 
   - Basic account registration 
   - account activation via email
