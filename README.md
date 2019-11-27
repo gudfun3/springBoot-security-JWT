@@ -6,6 +6,15 @@
 
 This is a demo for spring boot Security with JWT
 
+In this application the user will login to the system by providing username and password (also the captcha)
+and after successful login the subsequent request will contain the jwt token as header as 
+("Authorization:Bearer jlkjfldf.asjdlfjsdaf.asdjflsdjf") from which the user will be authorized to access 
+the asked resources . to check whether the request contains the authorization header or not
+we have implemented a JwtRequestFilter which will intercept each request to find the desired jwt token and 
+then checks whether the token is valid or not after that it creates usernamePasswordAuthenticationToken
+if the token is a valid one.
+ 
+
   - Basic account registration 
   - account activation via email
   - mongodb as database

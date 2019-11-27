@@ -91,11 +91,15 @@ public class UserController {
 	 * @return
 	 */
 	@PostMapping("/authenticate")
-	public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
+	public ResponseEntity<?> createAuthenticationToken(HttpServletRequest request) throws Exception {
 	
+		String authToken= request.getHeader("Authorization").substring(("Basic").length()).trim();
+		if(authToken!=null) {
+		String username=new String(Base64.getDecoder().decode(authToken)).split(":")[0];
+		String password=new String(Base64.getDecoder().decode(authToken)).split(":")[1];
 		try {
 			authenticationManager.authenticate(
-					new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(), authenticationRequest.getPassword())
+					new UsernamePasswordAuthenticationToken(username, password)
 			);
 		}
 		catch (BadCredentialsException e) {
@@ -104,11 +108,13 @@ public class UserController {
 
 
 		final UserDetails userDetails = customUserDetailsService
-				.loadUserByUsername(authenticationRequest.getUsername());
+				.loadUserByUsername(username);
 
 		final String jwt = jwtTokenUtil.generateToken(userDetails);
 
 		return ResponseEntity.ok(new AuthenticationResponse(jwt));
+		}
+		return new ResponseEntity<>("{}",HttpStatus.OK);
 	}
 	
 	@GetMapping("/user")
